@@ -1,5 +1,4 @@
-""""Command-line entry point for the initial P5R agent foundation."""
-
+"""Command-line entry point for the initial P5R agent foundation."""
 import argparse
 import json
 import subprocess
@@ -15,9 +14,7 @@ from .workspace import scan_files, search_text
 def _git(workspace: Path, *args: str) -> tuple[int, str]:
     result = subprocess.run(
         ["git", "-C", str(workspace), *args],
-        capture_output=True,
-        text=True,
-        check=False,
+        capture_output=True, text=True, check=False,
     )
     return result.returncode, (result.stdout + result.stderr).strip()
 
@@ -50,7 +47,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "scan":
-        print("\\n".join(scan_files(args.workspace.expanduser().resolve())))
+        print("\n".join(scan_files(args.workspace.expanduser().resolve())))
     elif args.command == "validate":
         result = validate_workspace(args.workspace.expanduser().resolve())
         print(json.dumps(result, ensure_ascii=False, indent=2))
